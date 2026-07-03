@@ -3,9 +3,7 @@ const audio = document.getElementById("audio");
 
 let isPlaying = false;
 
-function togglePlay() {
-
-  if (!audio) return;
+function toggle() {
 
   if (!isPlaying) {
     audio.play().catch(()=>{});
@@ -18,11 +16,11 @@ function togglePlay() {
   isPlaying = !isPlaying;
 }
 
-scene.addEventListener("click", togglePlay);
+scene.addEventListener("click", toggle);
 
 document.addEventListener("keydown", (e) => {
   if (e.code === "Space") {
     e.preventDefault();
-    togglePlay();
+    toggle();
   }
 });
