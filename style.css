@@ -1,35 +1,84 @@
 body {
   margin: 0;
   overflow: hidden;
-  background: black;
-  touch-action: manipulation; /* 🚨 去掉手机点击延迟 */
 }
 
-/* 背景（关键：固定比例裁切优化） */
+/* 背景 */
 .scene {
   width: 100vw;
   height: 100vh;
-  background: url("bg.png") center center / cover no-repeat;
+  background: url("bg.png") center/cover no-repeat;
   position: relative;
-  cursor: pointer;
-
-  /* 🎬 电影氛围 */
-  filter: brightness(0.95) contrast(1.05);
-  transition: filter 0.8s ease;
 }
 
-/* 播放时整体变暖 */
-.scene.playing {
-  filter: brightness(1.15) contrast(1.2) saturate(1.15);
+/* 🎵 黑胶（核心升级） */
+.vinyl {
+  position: absolute;
+  left: 50%;
+  bottom: 18%;
+  transform: translateX(-50%);
+
+  width: 220px;
+  height: 220px;
+  border-radius: 50%;
+
+  background: radial-gradient(circle,
+    #111 20%,
+    #000 60%,
+    #111 100%);
+
+  box-shadow:
+    0 0 30px rgba(0,0,0,0.6),
+    inset 0 0 20px rgba(255,255,255,0.05);
+
+  /* 默认不转 */
+  animation: spin 3s linear infinite;
+  animation-play-state: paused;
 }
 
-/* 🎞️ 电影暗角（自适应） */
-.scene::after {
+/* 黑胶“转动纹理感” */
+.vinyl::after {
   content: "";
   position: absolute;
-  inset: 0;
-  background: radial-gradient(circle at center,
-    rgba(0,0,0,0.0) 30%,
-    rgba(0,0,0,0.7) 100%);
-  pointer-events: none;
+  inset: 10px;
+  border-radius: 50%;
+  background: repeating-radial-gradient(
+    circle,
+    rgba(255,255,255,0.06) 0px,
+    transparent 2px,
+    transparent 4px
+  );
+}
+
+/* 🎬 唱针 */
+.tonearm {
+  position: absolute;
+  left: 60%;
+  bottom: 32%;
+
+  width: 140px;
+  height: 8px;
+  background: #cbb08a;
+  border-radius: 4px;
+
+  transform-origin: left center;
+  transform: rotate(-35deg);
+
+  transition: transform 0.8s ease;
+}
+
+/* 播放状态 */
+.playing .vinyl {
+  animation-play-state: running;
+}
+
+/* 唱针落下 */
+.playing .tonearm {
+  transform: rotate(-5deg);
+}
+
+/* 旋转动画 */
+@keyframes spin {
+  from { transform: translateX(-50%) rotate(0deg); }
+  to   { transform: translateX(-50%) rotate(360deg); }
 }
