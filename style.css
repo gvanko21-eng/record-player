@@ -1,10 +1,10 @@
 body {
   margin: 0;
-  background: red; /* 🔥 用来确认CSS是否生效 */
+  background: red !important;
 }
 
 .scene {
   width: 100vw;
   height: 100vh;
-  background: blue; /* 🔥 如果你看到蓝色，说明CSS生效 */
+  background: blue !important;
 }
