@@ -1,13 +1,13 @@
 const scene = document.getElementById("scene");
 const audio = document.getElementById("audio");
-const vinyl = document.getElementById("vinyl");
 
 let isPlaying = false;
 
-function togglePlay() {
+function toggle() {
+  if (!audio) return;
 
   if (!isPlaying) {
-    audio.play();
+    audio.play().catch(()=>{});
     scene.classList.add("playing");
   } else {
     audio.pause();
@@ -17,13 +17,11 @@ function togglePlay() {
   isPlaying = !isPlaying;
 }
 
-/* 点击任何地方都可以播放（你也可以后面再加区域限制） */
-scene.addEventListener("click", togglePlay);
+scene.addEventListener("click", toggle);
 
-/* 空格键 */
 document.addEventListener("keydown", (e) => {
   if (e.code === "Space") {
     e.preventDefault();
-    togglePlay();
+    toggle();
   }
 });
