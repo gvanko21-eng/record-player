@@ -1,11 +1,35 @@
 body {
   margin: 0;
   overflow: hidden;
+  background: black;
+  touch-action: manipulation; /* 🚨 去掉手机点击延迟 */
 }
 
+/* 背景（关键：固定比例裁切优化） */
 .scene {
   width: 100vw;
   height: 100vh;
-  background: url("bg.png") center/cover no-repeat;
+  background: url("bg.png") center center / cover no-repeat;
+  position: relative;
   cursor: pointer;
+
+  /* 🎬 电影氛围 */
+  filter: brightness(0.95) contrast(1.05);
+  transition: filter 0.8s ease;
+}
+
+/* 播放时整体变暖 */
+.scene.playing {
+  filter: brightness(1.15) contrast(1.2) saturate(1.15);
+}
+
+/* 🎞️ 电影暗角（自适应） */
+.scene::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center,
+    rgba(0,0,0,0.0) 30%,
+    rgba(0,0,0,0.7) 100%);
+  pointer-events: none;
 }
